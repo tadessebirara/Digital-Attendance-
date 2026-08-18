@@ -1,0 +1,146 @@
+# ─── Node.js ──────────────────────────────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn-integrity
+package-lock.json
+
+# ─── Build outputs ────────────────────────────────────────────────────────────
+dist/
+build/
+out/
+.next/
+.nuxt/
+.output/
+.vercel/
+.netlify/
+
+# ─── Environment & secrets ────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.cert
+*.p12
+*.pfx
+
+# ─── Logs ─────────────────────────────────────────────────────────────────────
+logs/
+*.log
+*.log.*
+tmp-*.log
+tmp-*.err.log
+combined.log
+error.log
+
+# ─── Temp / cache ─────────────────────────────────────────────────────────────
+*.tmp
+*.temp
+*.cache
+.cache/
+.parcel-cache/
+.eslintcache
+.stylelintcache
+{
+
+# ─── Flutter / Dart ───────────────────────────────────────────────────────────
+mobile/.dart_tool/
+mobile/build/
+mobile/.flutter-plugins
+mobile/.flutter-plugins-dependencies
+mobile/.packages
+mobile/pubspec.lock
+mobile/.idea/
+mobile/*.iml
+mobile/android/.gradle/
+mobile/android/local.properties
+mobile/android/app/debug/
+mobile/android/app/release/
+mobile/android/app/profile/
+mobile/android/captures/
+mobile/ios/.symlinks/
+mobile/ios/Pods/
+mobile/ios/Flutter/Flutter.framework
+mobile/ios/Flutter/Flutter.podspec
+mobile/ios/Flutter/Generated.xcconfig
+mobile/ios/Flutter/flutter_export_environment.sh
+mobile/ios/Runner.xcworkspace/
+mobile/windows/flutter/generated_plugin_registrant.cc
+mobile/windows/flutter/generated_plugin_registrant.h
+mobile/windows/flutter/generated_plugins.cmake
+
+# ─── Binaries & compiled artifacts ───────────────────────────────────────────
+*.apk
+*.aab
+*.ipa
+*.exe
+*.dll
+*.so
+*.dylib
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# ─── OS files ─────────────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ─── IDE / Editor ─────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# ─── Docker runtime volumes ───────────────────────────────────────────────────
+docker-data/
+postgres-data/
+redis-data/
+
+# ─── Kiro / AI tools ──────────────────────────────────────────────────────────
+.kiro/
+.qodo/
+
+# ─── Uploaded files (runtime data) ───────────────────────────────────────────
+/uploads/
+api/uploads/
+
+# ─── Old folder structure (removed) ──────────────────────────────────────────
+/infrastructure/
+/database/
+/logs/
+/packages/
+/node_modules/
+
+# ─── Root dev/temp files ──────────────────────────────────────────────────────
+*.sqlite
+*.db
+/{
+
+# ─── Debug / fix / throwaway scripts ─────────────────────────────────────────
+api/scripts/
+load-test.js
+PROGRESS.md
+TODO.md
+
+# ─── Root dev scripts ─────────────────────────────────────────────────────────
+restart-postgres.bat
+setup.bat
+setup.sh

@@ -1,0 +1,2 @@
+-- Mirror: database/migrations/016_core_attendance_schedules.sql
+-- Run the root database/migrations/016_core_attendance_schedules.sql on your Postgres instance.

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="A new Flutter project.">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Alyah Smart Attendance">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>Alyah Smart Attendance</title>
+  <link rel="manifest" href="manifest.json">
+  <!-- jsQR for QR code decoding from camera -->
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+  <style>
+    #qr-video-container {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #000;
+      z-index: 9999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    #qr-video-container.active { display: flex; }
+    #qr-video { width: 100%; max-width: 400px; border-radius: 12px; }
+    #qr-canvas { display: none; }
+    #qr-close-btn {
+      position: absolute; top: 20px; right: 20px;
+      background: rgba(255,255,255,0.2); border: none; border-radius: 50%;
+      width: 44px; height: 44px; color: white; font-size: 20px; cursor: pointer;
+    }
+    #qr-status {
+      color: white; margin-top: 16px; font-size: 14px;
+      font-family: sans-serif; text-align: center;
+    }
+    #qr-overlay {
+      position: absolute;
+      border: 3px solid #0D7377;
+      border-radius: 12px;
+      width: 220px; height: 220px;
+      box-shadow: 0 0 0 9999px rgba(0,0,0,0.5);
+    }
+  </style>
+</head>
+<body>
+  <!--
+    You can customize the "flutter_bootstrap.js" script.
+    This is useful to provide a custom configuration to the Flutter loader
+    or to give the user feedback during the initialization process.
+
+    For more details:
+    * https://docs.flutter.dev/platform-integration/web/initialization
+  -->
+  <!-- QR Scanner UI -->
+  <div id="qr-video-container">
+    <button id="qr-close-btn" onclick="window._qrClose()">✕</button>
+    <div style="position:relative;display:flex;align-items:center;justify-content:center;">
+      <video id="qr-video" autoplay playsinline muted></video>
+      <div id="qr-overlay"></div>
+    </div>
+    <canvas id="qr-canvas"></canvas>
+    <p id="qr-status">Point camera at QR code...</p>
+  </div>
+
+  <script>
+    // ── QR Scanner bridge ──────────────────────────────────────────────────
+    window._qrStream = null;
+    window._qrAnimFrame = null;
+    window._qrCallback = null;
+
+    window._qrStart = function(callback) {
+      window._qrCallback = callback;
+      const container = document.getElementById('qr-video-container');
+      const video     = document.getElementById('qr-video');
+      const canvas    = document.getElementById('qr-canvas');
+      const status    = document.getElementById('qr-status');
+      const ctx       = canvas.getContext('2d');
+
+      container.classList.add('active');
+      status.textContent = 'Starting camera...';
+
+      navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+        .then(stream => {
+          window._qrStream = stream;
+          video.srcObject = stream;
+          video.play();
+          status.textContent = 'Point camera at QR code...';
+
+          function tick() {
+            if (video.readyState === video.HAVE_ENOUGH_DATA) {
+              canvas.width  = video.videoWidth;
+              canvas.height = video.videoHeight;
+              ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+              const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+              const code = jsQR(imageData.data, imageData.width, imageData.height, { inversionAttempts: 'dontInvert' });
+              if (code) {
+                status.textContent = '✓ QR Code detected!';
+                window._qrStop();
+                if (window._qrCallback) window._qrCallback(code.data);
+                return;
+              }
+            }
+            window._qrAnimFrame = requestAnimationFrame(tick);
+          }
+          window._qrAnimFrame = requestAnimationFrame(tick);
+        })
+        .catch(err => {
+          status.textContent = 'Camera error: ' + err.message;
+          console.error('Camera error:', err);
+        });
+    };
+
+    window._qrStop = function() {
+      if (window._qrAnimFrame) { cancelAnimationFrame(window._qrAnimFrame); window._qrAnimFrame = null; }
+      if (window._qrStream)    { window._qrStream.getTracks().forEach(t => t.stop()); window._qrStream = null; }
+      document.getElementById('qr-video-container').classList.remove('active');
+    };
+
+    window._qrClose = function() {
+      window._qrStop();
+      if (window._qrCallback) window._qrCallback('__cancelled__');
+    };
+  </script>
+
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>
