@@ -358,17 +358,24 @@ class _TopStrip extends StatelessWidget {
   }
 }
 
-class _AnnouncementHero extends StatelessWidget {
+ class _AnnouncementHero extends StatelessWidget {
   final Map<String, dynamic>? announcement;
 
-  const _AnnouncementHero({this.announcement});
+  const _AnnouncementHero({
+    this.announcement,
+  });
 
   static _HeroStyle _resolveStyle(Map<String, dynamic>? a) {
     if (a == null) {
-      return _HeroStyle(gradient: AppTheme.navyGradient, badge: 'ANNOUNCEMENT', icon: Icons.campaign_outlined);
+      return _HeroStyle(
+        gradient: AppTheme.navyGradient,
+        badge: 'ANNOUNCEMENT',
+        icon: Icons.campaign_outlined,
+      );
     }
+
     final priority = (a['priority'] ?? '').toString().toUpperCase();
-    final type     = (a['type']     ?? '').toString().toUpperCase();
+    final type = (a['type'] ?? '').toString().toUpperCase();
 
     if (priority == 'CRITICAL' || type == 'EMERGENCY') {
       return _HeroStyle(
@@ -377,16 +384,22 @@ class _AnnouncementHero extends StatelessWidget {
         icon: Icons.emergency_rounded,
       );
     }
+
     if (priority == 'URGENT' || priority == 'HIGH' || type == 'URGENT') {
       return _HeroStyle(
         gradient: const LinearGradient(
-          colors: [Color(0xFFF59E0B), Color(0xFFD97706)],
-          begin: Alignment.topLeft, end: Alignment.bottomRight,
+          colors: [
+            Color(0xFFF59E0B),
+            Color(0xFFD97706),
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
         ),
         badge: 'URGENT',
         icon: Icons.warning_amber_rounded,
       );
     }
+
     if (priority == 'LOW' || type == 'INFO') {
       return _HeroStyle(
         gradient: AppTheme.successGradient,
@@ -394,14 +407,21 @@ class _AnnouncementHero extends StatelessWidget {
         icon: Icons.info_outline_rounded,
       );
     }
-    return _HeroStyle(gradient: AppTheme.navyGradient, badge: 'ANNOUNCEMENT', icon: Icons.campaign_outlined);
+
+    return _HeroStyle(
+      gradient: AppTheme.navyGradient,
+      badge: 'ANNOUNCEMENT',
+      icon: Icons.campaign_outlined,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     final title = announcement?['title']?.toString() ?? 'Company Update';
+
     final content = announcement?['content']?.toString() ??
         'No announcements yet. Check back soon.';
+
     final style = _resolveStyle(announcement);
 
     return Container(
@@ -415,35 +435,47 @@ class _AnnouncementHero extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Announcement badge
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.18),
                   borderRadius: AppTheme.radiusXS,
                 ),
-                child: Row(mainAxisSize: MainAxisSize.min, children: [
-                  Icon(style.icon, size: 11, color: Colors.white),
-                  const SizedBox(width: 5),
-                  Text(
-                    style.badge,
-                    style: const TextStyle(
-                      fontSize: 9,
-                      fontWeight: FontWeight.w800,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      style.icon,
+                      size: 11,
                       color: Colors.white,
-                      letterSpacing: 1.0,
                     ),
-                  ),
-                ]),
+                    const SizedBox(width: 5),
+                    Text(
+                      style.badge,
+                      style: const TextStyle(
+                        fontSize: 9,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.white,
+                        letterSpacing: 1.0,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
+
           const SizedBox(height: 12),
+
+          // Announcement title
           Text(
             title,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
             style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w800,
@@ -452,47 +484,23 @@ class _AnnouncementHero extends StatelessWidget {
               letterSpacing: -0.3,
             ),
           ),
+
           const SizedBox(height: 8),
+
+          // Full announcement content
           Text(
             content,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
             style: TextStyle(
               fontSize: 13,
               height: 1.5,
               color: Colors.white.withValues(alpha: 0.75),
             ),
           ),
-          const SizedBox(height: 14),
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.14),
-                  borderRadius: AppTheme.radiusS,
-                  border: Border.all(
-                    color: Colors.white.withValues(alpha: 0.22),
-                  ),
-                ),
-                child: const Text(
-                  'Read more',
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                    letterSpacing: 0.2,
-                  ),
-                ),
-              ),
-            ],
-          ),
         ],
       ),
     );
   }
 }
-
 class _HeroStyle {
   final Gradient gradient;
   final String badge;

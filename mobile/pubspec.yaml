@@ -33,7 +33,10 @@ dependencies:
   file_picker: ^8.0.0
   uuid: ^4.3.3
   mobile_scanner: ^5.2.3
-  flutter_jailbreak_detection: ^1.1.0
+  flutter_jailbreak_detection:
+    git:
+      url: https://github.com/pdurasie-ecovery/flutter_jailbreak_detection.git
+      ref: add-namespace
   logger: ^2.2.0
   crypto: ^3.0.3
   device_info_plus: ^12.4.0

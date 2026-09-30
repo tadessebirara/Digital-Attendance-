@@ -6,7 +6,7 @@ import 'dart:io' show Platform;
 /// Release mode → uses Render production backend
 ///
 /// Override at build time:
-///   flutter run  --dart-define=API_BASE_URL=http://192.168.x.x:5000/api
+///   flutter run  --dart-define=API_BASE_URL=http://10.242.22.193:5000/api
 ///   flutter build apk --dart-define=API_BASE_URL=https://your-server.com/api
 class ApiConstants {
   // ── Production ────────────────────────────────────────────────────────────
@@ -14,11 +14,13 @@ class ApiConstants {
       'https://attendance.alyahsoftware.com/api';
 
   // ── Local server — PC's WiFi IP (phone must be on same network) ──────────
-  // Update this when your PC's IP changes: run `ipconfig` → IPv4 Address
-  static const String _localNetworkUrl = 'http://192.168.1.9:5000/api';
-
+  // Update this when your PC's IP changes: run `ipconfig` → IPv4 Address 
+  static const String _localNetworkUrl =
+    'http://10.107.127.194:5000/api';
   // ── Localhost fallback — Flutter web / Android emulator / desktop ─────────
   static const String _localUrl = 'http://localhost:5000/api';
+
+  static const String _emulatorUrl = 'http://10.107.127.194:5000/api';
 
   static String get baseUrl {
     // 1. Build-time override always wins
@@ -29,7 +31,7 @@ class ApiConstants {
     if (kIsWeb) return _localUrl;
 
     // 3. Release / profile → production
-    if (!kDebugMode) return _productionUrl;
+    if (!kDebugMode) return _localNetworkUrl;
 
     // 4. Debug on a real Android/iOS device → use WiFi IP so the phone can
     //    actually reach the backend running on this machine.
@@ -52,17 +54,17 @@ class ApiConstants {
     return api.replaceFirst(RegExp(r'/api/?$'), '');
   }
 
-  static const Duration timeout        = Duration(seconds: 12);
+  static const Duration timeout = Duration(seconds: 12);
   static const Duration connectTimeout = Duration(seconds: 8);
 
-  static const String login         = '/auth/login';
-  static const String register      = '/auth/register';
-  static const String me            = '/auth/me';
-  static const String attendance    = '/attendance';
-  static const String leaves        = '/leaves';
-  static const String chat          = '/chat';
+  static const String login = '/auth/login';
+  static const String register = '/auth/register';
+  static const String me = '/auth/me';
+  static const String attendance = '/attendance';
+  static const String leaves = '/leaves';
+  static const String chat = '/chat';
   static const String announcements = '/announcements';
-  static const String dashboard     = '/dashboard';
+  static const String dashboard = '/dashboard';
 }
 
 class AppConstants {

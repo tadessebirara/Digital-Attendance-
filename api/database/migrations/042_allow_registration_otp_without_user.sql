@@ -1,0 +1,2 @@
+ALTER TABLE device_otp
+ALTER COLUMN user_id DROP NOT NULL;

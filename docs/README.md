@@ -270,7 +270,7 @@ Used by:
 | Admin    | admin@system.com    | Admin@123    |
 | HR       | hr@company.com      | Hr@123       |
 | Employee | employee@company.com| Employee@123 |
-| DB       | postgres            | eimy         |
+| DB       | postgres            | smart_attendance_system         |
 
 ---
 

@@ -80,7 +80,6 @@
 ## Diagnostics
 
 All modified files verified clean with zero diagnostic errors:
-
 | File | Status |
 |------|--------|
 | `analytics.controller.js` | ✅ Clean |

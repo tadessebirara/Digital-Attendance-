@@ -88,7 +88,7 @@ if (process.env.REDIS_URL) {
     logger.info('? Socket.IO Redis adapter initialized');
   } catch (e) {
     redisStatus = 'error';
-    logger.error('[Redis Adapter] Failed to initialize — running without adapter:', e.message);
+    logger.error('[Redis Adapter] Failed to initialize ï¿½ running without adapter:', e.message);
   }
 }
 app.set('redisStatus', () => redisStatus);
@@ -160,7 +160,7 @@ const refreshLimiter = rateLimit({
 
 const globalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 1000,                 // raised for dev — mobile app makes many calls on startup
+  max: 1000,                 // raised for dev ï¿½ mobile app makes many calls on startup
   standardHeaders: true,
   legacyHeaders: false,
   skip: (req) => req.originalUrl.split('?')[0].startsWith('/api/auth'),
@@ -213,7 +213,7 @@ const { runSeeds } = require('./src/config/seed');
 // Test database connection before starting server
 testConnection().then(async (connected) => {
   if (connected) {
-    // Safety net: create critical tables individually — each in its own try/catch
+    // Safety net: create critical tables individually ï¿½ each in its own try/catch
     const safeQuery = async (sql) => { try { await query(sql); } catch (_) {} };
     await safeQuery(`CREATE TABLE IF NOT EXISTS refresh_tokens (
       id SERIAL PRIMARY KEY, user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -263,7 +263,7 @@ testConnection().then(async (connected) => {
     await safeQuery(`ALTER TABLE users ADD COLUMN IF NOT EXISTS first_login BOOLEAN DEFAULT TRUE`);
     await safeQuery(`ALTER TABLE users ADD COLUMN IF NOT EXISTS primary_device_id VARCHAR(255) NULL`);
     await safeQuery(`ALTER TABLE users ADD COLUMN IF NOT EXISTS created_by VARCHAR(50) NULL`);
-    // Salary column — required by salary.service, salary.controller, hr.controller
+    // Salary column ï¿½ required by salary.service, salary.controller, hr.controller
     await safeQuery(`ALTER TABLE users ADD COLUMN IF NOT EXISTS monthly_salary NUMERIC(12,2) NOT NULL DEFAULT 0`);
     await safeQuery(`ALTER TABLE users ADD COLUMN IF NOT EXISTS working_time_type VARCHAR(20) NULL`);
     await safeQuery(`ALTER TABLE users ADD COLUMN IF NOT EXISTS working_days_per_week INTEGER NULL`);
@@ -339,7 +339,7 @@ testConnection().then(async (connected) => {
     });
 
     const shutdown = (signal) => {
-      logger.info(`${signal} received — shutting down gracefully`);
+      logger.info(`${signal} received ï¿½ shutting down gracefully`);
       server.close(() => {
         logger.info('HTTP server closed');
         process.exit(0);
@@ -352,13 +352,13 @@ testConnection().then(async (connected) => {
     server.listen(PORT, '0.0.0.0', () => {
       logger.info(`
 +------------------------------------------------------------+
-¦         ?? ALYAH SMART ATTENDANCE - ENTERPRISE EDITION       ¦
-¦------------------------------------------------------------¦
-¦   ?? Mobile API:    http://0.0.0.0:${PORT}/api              ¦
-¦   ?? Web API:       http://localhost:${PORT}/api            ¦
-¦   ?? Health Check:  http://localhost:${PORT}/api/health     ¦
-¦   ?? WebSocket:     ws://localhost:${PORT}                    ¦
-¦   ???  Database:      PostgreSQL (alyah_smart_attendance)      ¦
+ï¿½         ?? ALYAH SMART ATTENDANCE - ENTERPRISE EDITION       ï¿½
+ï¿½------------------------------------------------------------ï¿½
+ï¿½   ?? Mobile API:    http://0.0.0.0:${PORT}/api              ï¿½
+ï¿½   ?? Web API:       http://localhost:${PORT}/api            ï¿½
+ï¿½   ?? Health Check:  http://localhost:${PORT}/api/health     ï¿½
+ï¿½   ?? WebSocket:     ws://localhost:${PORT}                    ï¿½
+ï¿½   ???  Database:      PostgreSQL (alyah_smart_attendance)      ï¿½
 +------------------------------------------------------------+
       `);
     });
@@ -368,13 +368,13 @@ testConnection().then(async (connected) => {
 
     // Log optional feature status
     if (!process.env.FIREBASE_PROJECT_ID || !process.env.FIREBASE_PRIVATE_KEY) {
-      logger.warn('[Firebase] FCM not configured — push notifications disabled. Set FIREBASE_PROJECT_ID, FIREBASE_PRIVATE_KEY, FIREBASE_CLIENT_EMAIL in .env to enable.');
+      logger.warn('[Firebase] FCM not configured ï¿½ push notifications disabled. Set FIREBASE_PROJECT_ID, FIREBASE_PRIVATE_KEY, FIREBASE_CLIENT_EMAIL in .env to enable.');
     }
     if (!process.env.SMTP_HOST) {
-      logger.warn('[Email] SMTP not configured — emails will be logged only (dev mode). Set SMTP_HOST, SMTP_USER, SMTP_PASS in .env to enable.');
+      logger.warn('[Email] SMTP not configured ï¿½ emails will be logged only (dev mode). Set SMTP_HOST, SMTP_USER, SMTP_PASS in .env to enable.');
     }
     if (!process.env.REDIS_URL) {
-      logger.info('[Redis] Not configured — Socket.IO running in single-instance mode. Set REDIS_URL for multi-instance scaling.');
+      logger.info('[Redis] Not configured ï¿½ Socket.IO running in single-instance mode. Set REDIS_URL for multi-instance scaling.');
     }
   } else {
     logger.error('? Failed to connect to database. Server not started.');
