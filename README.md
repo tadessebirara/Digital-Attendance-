@@ -11,9 +11,9 @@
   </p>
 
   <p>
-    <a href="#connect-with-me">LinkedIn</a> ·
-    <a href="#connect-with-me">Portfolio</a> ·
-    <a href="#connect-with-me">Email</a>
+    <a href="https://www.linkedin.com/in/tadesse-birara-7bbf6b262/">LinkedIn</a> ·
+    <a href="#">Portfolio</a> ·
+    <a href="mailto:tadessebirara7@gmail.com">Email</a>
   </p>
 
 </div>
@@ -142,12 +142,12 @@ I am currently developing my skills in:
 
 I am open to collaboration, meaningful projects, and opportunities to learn and grow with experienced teams.
 
-- LinkedIn: [Add your LinkedIn profile](#)
-- Portfolio: [Add your portfolio URL](#)
-- Email: [your.email@example.com](mailto:your.email@example.com)
+- LinkedIn: [Tadesse Birara](https://www.linkedin.com/in/tadesse-birara-7bbf6b262/)
+- Portfolio: [Portfolio](#)
+- Email: [tadessebirara7@gmail.com](mailto:tadessebirara7@gmail.com)
 - GitHub: [github.com/tadessebirara](https://github.com/tadessebirara)
 
-> Replace the placeholder links above with your actual professional details when ready.
+> Portfolio link is currently placeholder-only and can be replaced with your real site when available.
 
 ---
 
